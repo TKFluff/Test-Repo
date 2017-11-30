@@ -1,0 +1,53 @@
+//-----------------------------------------------------------------------------
+// FileReverse.java
+// This program will take in a file, reverse it, and input that reversed string into a new file.
+//-----------------------------------------------------------------------------
+import java.io.*;
+import java.util.Scanner;
+
+class FileReverse {
+
+    public static void main(String[] args) throws IOException{
+	//Checks number of arguments. If it is not two, it doesn't run
+	if(args.length != 2){
+	    System.out.println("Note: This file needs two files. One file to input a String. One file to out put the reverse String.");
+	    System.exit(1);
+	}
+	//open files. in takes in a file from somewhere and out allows you to output the file somewhere
+	Scanner in = new Scanner(new File(args[0]));
+	PrintWriter out = new PrintWriter(new FileWriter(args[1]));
+
+	//reads file from in and puts it into a string
+	while (in.hasNextLine() ) {
+	    //This turns the input file into a string and trims the leading and closing spaces.
+	    String line = in.nextLine().trim() + " ";
+
+	    //Splits line around white space
+	    String [] token = line.split("\\s+");
+
+	    //Print out tokens
+	    int n = token.length;
+	    for(int i = 0; i < n; i++) {
+		String format = stringReverse(token[i]);
+		out.println(format);
+	    }
+    	}
+    
+    	//Close files
+   	 in.close();
+   	 out.close();
+    }
+	
+	//This method will return the inputted string in the reverse order
+	public static String stringReverse(String s) {
+           String reverse = "";
+	//By starting at s.length() - 1, you can traverse backward and be able to get the string of words backwards.
+	    for (int i = s.length() - 1; i >= 0; i--) {
+		reverse = reverse + (s.charAt(i));
+	    }
+	    return reverse;
+
+	}
+	
+	
+   }
